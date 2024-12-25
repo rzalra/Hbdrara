@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Program Cici</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+
+        background-color: #f0f0f0;
+
+        margin: 0;
+
+        padding: 20px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        height: 100vh;
+      }
+
+      #container {
+        background-color: white;
+
+        padding: 20px;
+
+        border-radius: 10px;
+
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        width: 300px;
+
+        text-align: center;
+      }
+
+      #output {
+        margin-bottom: 20px;
+
+        min-height: 20px;
+      }
+
+      #input-section {
+        display: flex;
+
+        flex-direction: column;
+      }
+
+      input {
+        margin-top: 10px;
+
+        padding: 10px;
+
+        border: 1px solid #ccc;
+
+        border-radius: 5px;
+      }
+
+      button {
+        margin-top: 10px;
+
+        padding: 10px;
+
+        background-color: #007bff;
+
+        color: white;
+
+        border: none;
+
+        border-radius: 5px;
+
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      #openButton {
+        display: none; /* Tersembunyi sampai dibutuhkan */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="container">
+      <a href="https://rzalra.github.io/forlusi/"> <button>Open</button></a>
+
+      <h1>Halo, selamat datang!</h1>
+
+      <h4>
+        Namaku cici, aku adalah program yang dibuat Rizal atau yang kamu kenal
+        Luckyboy
+      </h4>
+
+      <div id="output"></div>
+
+      <div id="input-section">
+        <label for="name">Kita belum kenalan nihh</label>
+
+        <label for="name">Nama kamu siapa?</label>
+
+        <input type="text" id="name" />
+
+        <button onclick="handleName()">Jawab</button>
+      </div>
+    </div>
+
+    <script>
+      let name, kabar, mangat;
+
+      function typeWriter(text, element, callback) {
+        let i = 0;
+
+        element.innerHTML = "";
+
+        const timer = setInterval(() => {
+          if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+
+            i++;
+          } else {
+            clearInterval(timer);
+
+            if (callback) callback();
+          }
+        }, 50);
+      }
+
+      function clearInput() {
+        const inputSection = document.getElementById("input-section");
+
+        inputSection.innerHTML = "";
+      }
+
+      function handleName() {
+        name = document.getElementById("name").value.toLowerCase();
+
+        const output = document.getElementById("output");
+
+        clearInput();
+
+        if (["cyn", "cyntia", "cynthia"].includes(name)) {
+          typeWriter(
+            `Halo ${name}, aku program yang dibuat Rizal`,
+
+            output,
+
+            askKabar
+          );
+        } else {
+          typeWriter("Boong, aku tau kamu lusii i nya dua", output, askKabar);
+        }
+      }
+
+      function askKabar() {
+        const inputSection = document.getElementById("input-section");
+
+        inputSection.innerHTML = `
+
+                <label for="kabar">Gimana kabarmu sekarang? (baik/ga)</label>
+
+                <input type="text" id="kabar">
+
+                <button onclick="handleKabar()">Jawab</button>
+
+            `;
+      }
+
+      function handleKabar() {
+        kabar = document.getElementById("kabar").value.toLowerCase();
+
+        const output = document.getElementById("output");
+
+        clearInput();
+
+        if (kabar === "baik") {
+          typeWriter("Baguslah kalau baik!", output, askLomba);
+        } else {
+          typeWriter(
+            "Waduh kenapa ga baik? Karena kecapean kah?",
+
+            output,
+
+            askLomba
+          );
+        }
+      }
+
+      function askLomba() {
+        const inputSection = document.getElementById("input-section");
+
+        inputSection.innerHTML = `
+
+                <label for="mangat">Mau disemangatin berapa kali?</label>
+
+                <input type="number" id="mangat">
+
+                <button onclick="handleMangat()">Jawab</button>
+
+            `;
+      }
+
+      function handleMangat() {
+        mangat = parseInt(document.getElementById("mangat").value);
+
+        const output = document.getElementById("output");
+
+        clearInput();
+
+        if (mangat <= 0) {
+          typeWriter(
+            "Serius atuh, mau disemangatin berapa kali?",
+
+            output,
+
+            askLomba
+          );
+        } else {
+          showSemangat();
+        }
+      }
+
+      function showSemangat() {
+        const output = document.getElementById("output");
+
+        output.innerHTML = "";
+
+        for (let i = 0; i < mangat; i++) {
+          output.innerHTML += `<p>Semangatt Lussiiii!!</p>`;
+        }
+
+        output.innerHTML +=
+          "<p>Ohh ya sebelum programku selesai, nih aku ada sesuatu untukmu! coba kamu pencet tombol open diatas</p>";
+
+        showOpenButton(); // Tampilkan tombol open
+      }
+
+      function showOpenButton() {
+        const openButton = document.createElement("button");
+
+        openButton.id = "openButton";
+
+        openButton.innerText = "Open";
+
+        openButton.onclick = function () {
+          alert("Ini adalah sesuatu spesial untukmu! (pencet tombol open)");
+        };
+
+        document.getElementById("output").appendChild(openButton);
+      }
+    </script>
+  </body>
+</html>
